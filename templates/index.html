@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <div class = "search-box">
+            <form class="search-box" method="POST">
+                <input type="text" name="city" placeholder="Enter city name" required>
+                <i class="fa fa-search search-icon"></i>
+                <button type="submit">Get Weather</button>
+            </form>
+        </div>     
+        {% if weather_data %}
+            {% if weather_data.cod != '404' %}
+            <div class="weather-box">
+                <h2>{{ weather_data.name }}</h2>
+                {% if image %}
+                    <img src="{{ url_for('static', filename=image) }}" alt="Weather Icon">
+                {% endif %}
+                <p class="temperature">{{ weather_data.main.temp }}<span>°C</span></p>
+                <p class="description">{{ weather_data.weather[0].description.capitalize() }}</p>
+            </div>
+            <div class="weather-details">
+                <p><span>{{ weather_data.main.temp_min }}°C</span> <label>Highest</label></p>
+                <p><span>{{ weather_data.main.temp_max }}°C</span> <label>Lowest</label></p>
+                <p><span>{{ weather_data.main.feels_like }}°C</span> <label>Feels Like</label></p>
+                <p><span>{{ weather_data.main.humidity }}%</span> <label>Humidity</label></p>
+                <p><span>{{ weather_data.wind.speed }} m/s</span> <label>Wind Speed</label></p>
+                <p><span>{{ weather_data.wind.deg }}°</span> <label>Wind Direction</label></p>             
+            </div>
+            {% else %}
+                <p class="error">City not found!</p>
+            {% endif %}
+        {% endif %}
+        </div>
+    </body>
+</html>
