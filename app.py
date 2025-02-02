@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from datetime import datetime
 import requests
 import os
 
@@ -24,6 +25,10 @@ def get_icon(icon_id, response):
 @app.route('/',methods=['GET', 'POST'])
 def index():
     weather_data = None
+    sunrise = None
+    sunset = None
+    sunrise_formatted = None
+    sunset_formatted = None
     image = None
     if request.method == 'POST':
         try:
@@ -31,12 +36,16 @@ def index():
             api_key = os.environ.get('API_KEY')
             weather_data = get_weather(city_name, api_key)
             print(weather_data)
+            sunrise = weather_data['sys']['sunrise']
+            sunset = weather_data['sys']['sunset']
+            sunrise_formatted = datetime.fromtimestamp(sunrise).strftime('%H:%M:%S')
+            sunset_formatted = datetime.fromtimestamp(sunset).strftime('%H:%M:%S')
             image = get_icon(icon_id=weather_data['weather'][0]['icon'], response=weather_data)
             # print(image)
         except Exception as e:
                 error_message = f"An error occurred: {str(e)}"
     
-    return render_template('index.html', weather_data=weather_data, image=image)    
+    return render_template('index.html', weather_data=weather_data, sunrise_formatted=sunrise_formatted, sunset_formatted=sunset_formatted, image=image)    
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -33,7 +33,10 @@
                 <p><span>{{ weather_data.main.feels_like }}°C</span> <label>Feels Like</label></p>
                 <p><span>{{ weather_data.main.humidity }}%</span> <label>Humidity</label></p>
                 <p><span>{{ weather_data.wind.speed }} m/s</span> <label>Wind Speed</label></p>
-                <p><span>{{ weather_data.wind.deg }}°</span> <label>Wind Direction</label></p>             
+                <p><span>{{ weather_data.wind.deg }}°</span> <label>Wind Direction</label></p>  
+                <p><span>{{ weather_data.main.pressure }} hPa</span> <label>Pressure</label></p>
+                <p><span>{{ sunrise_formatted }}</span> <label>Sunrise</label></p>  
+                <p><span>{{ sunset_formatted }}</span> <label>Sunset</label></p>           
             </div>
             {% else %}
                 <p class="error">City not found!</p>
