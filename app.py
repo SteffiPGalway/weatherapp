@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request
 from datetime import datetime
+from dotenv import load_dotenv
 import requests
 import os
 
 app = Flask(__name__)
+
+load_dotenv()
 
 def get_weather(city_name, api_key):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"

@@ -18,6 +18,11 @@ Set API KEY for Openweathermap:
 ```
 export API_KEY = ''
 ```
+Or 
+
+```
+create an .env file with your API key, install python-dotenv, import load_dotenv from dotenv
+```
 
 Run the flask app:
 
